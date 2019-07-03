@@ -1,6 +1,5 @@
 'use strict'
-
-
+require('./chat_app/chat_app')
 
 Parse.Cloud.define("helloanas", (request, response) => {
 

@@ -1,0 +1,12 @@
+{
+    "parse": {
+        "appId": "hippo",
+        "masterKey": "hippo",
+        "databaseURI": "mongodb://localhost:27017/future",
+        "cloud": "../cloud/main.js",
+        "serverURL": "http://localhost:1337/parse",
+        "port": "1337",
+        "maxUploadSize": "20mb",
+        "allowClientClassCreation": true
+    }
+}

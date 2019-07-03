@@ -4,15 +4,14 @@ let https = require('https');
 let Parse = require('../../public/parse');
 
 
-router.all('*', (rep, res) => {
-    res.send('111')
-})
+// router.all('*', (rep, res) => {
+//     res.send('111')
+// })
 router.get('/test', (rep, res) => {
     new Parse.Query("chat_userInfo").find().then(data => {
         res.send(data)
     })
 })
-
 
 
 

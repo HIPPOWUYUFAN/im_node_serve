@@ -4,7 +4,7 @@
   "description": "this is a parse-server on node",
   "main": "server.js",
   "scripts": {
-    "start": "hotnode server",
+    "start": "hotnode server --config ./config/config.local",
     "test": "npm test"
   },
   "repository": {
