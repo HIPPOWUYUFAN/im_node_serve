@@ -27,12 +27,35 @@ const app = express()
 //     // Serve the Parse API on the /parse URL prefix
 //     app.use('/parse', api);
 // }
+/**
+ * 配置POST BODY
+ */
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
+app.use(bodyParser.json())
+
+/**
+ * 跨域配置
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+const allowCrossDomain = function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Content-Type', "application/json; charset=utf-8");
+    next();
+};
+app.use(allowCrossDomain)
 
 // 加载路由分发
 let routes = require('./request/routes')
 routes(app)
 
-
-app.listen(513, () => console.log("server start"))
+app.listen(9200, () => console.log("server start"))
 
 
