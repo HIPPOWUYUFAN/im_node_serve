@@ -5,5 +5,8 @@ module.exports = function (app) {
     let user = require('./SpongeBob/user');
     app.use('/SpongeBob/user', user);
 
+    let webSocket = require('./SpongeBob/webSocket');
+    app.use('/SpongeBob/webSocket', webSocket)
+
 
 }

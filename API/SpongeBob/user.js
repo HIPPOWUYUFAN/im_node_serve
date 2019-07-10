@@ -1,3 +1,4 @@
+'use strict'
 let router = require('express').Router();
 // let request = require('request');
 // let https = require('https');
@@ -5,7 +6,6 @@ let Parse = require('../../public/parse');
 let response = require('../../public/response');
 
 let json = (e) => (JSON.stringify(e))
-
 
 
 
@@ -60,6 +60,7 @@ router.post('/login', (rep, res) => {
     userInfo.equalTo('username', body.username)
         .first()
         .then(data => {
+            console.log(json(data))
             if (!data) {
                 res.send(response.fail(null, '用户名不存在'))
             } else {
@@ -74,16 +75,45 @@ router.post('/login', (rep, res) => {
 
 let login = (param, res) => {
     console.log(param)
+    let userInfo = new Parse.Query('chat_userInfo')
+    let new_user = new (Parse.Object.extend('User'))
     Parse.User.logIn(param.username, param.password)
-        .then(data => {
-            console.log(data)
-            if (data) {
-                res.send(response.success(data, '登陆成功'))
+        .then(success => {
+            if (success) {
+                new_user.id = success.id
+                userInfo.equalTo('user', new_user)
+                    .include('user')
+                    .first()
+                    .then(data => {
+                        data.set('sessionToken',success.get('sessionToken'))
+                        res.send(response.success(data, '登陆成功'))
+                    })
             } else {
                 res.send(response.fail(null, '用户名或密码错误'))
             }
         })
 }
+
+/**
+ * 获取除自己之外所有用户
+ */
+
+router.get('/userInfo/:id', (rep, res) => {
+    let params = rep.params
+    let userInfo = new Parse.Query('chat_userInfo')
+    userInfo.notEqualTo('objectId', params.id)
+        .find()
+        .then(data => {
+            console.log(data)
+            if (data && data.length) {
+                res.send(response.success(data))
+            }
+        })
+})
+
+
+
+
 
 
 
