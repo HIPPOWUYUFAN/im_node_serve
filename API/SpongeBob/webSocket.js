@@ -3,6 +3,7 @@
 let router = require('express').Router();
 let Parse = require('../../public/parse');
 let response = require('../../public/response');
+const ip = require('../../public/variable');
 const ws = require("nodejs-websocket")
 
 /**
@@ -62,7 +63,8 @@ var server = ws.createServer((conn) => {
                 if (user[param.receive_user]) {
                     user[param.receive_user].sendText(data)
                 } else {
-                    content[param.receive_user].push(data)
+                    console.log('接收人不在线')
+                    // content[param.receive_user].push(data)
                 }
             } else {
                 user[param.send_user] ? user[param.send_user].sendText(response.fail('数据库储存失败')) : null
@@ -79,6 +81,6 @@ var server = ws.createServer((conn) => {
         console.log("异常关闭",user);
     });
 });
-server.listen(8082, () => { console.log("websocket连接完毕") })
+server.listen(9300,ip,() => { console.log("websocket连接完毕") })
 
 module.exports = router

@@ -1,4 +1,5 @@
 const express = require('express')
+const ip = require('./public/variable')
 const app = express()
 // let fs = require("fs");     // 访问系统文件
 
@@ -57,6 +58,6 @@ app.use(allowCrossDomain)
 let routes = require('./API/routes')
 routes(app)
 
-app.listen(9200, () => console.log("server start success"))
+app.listen(8989,ip, () => console.log("server start success"))
 
 
