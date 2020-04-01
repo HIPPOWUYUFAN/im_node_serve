@@ -8,5 +8,12 @@
         "port": "1337",
         "maxUploadSize": "20mb",
         "allowClientClassCreation": true
+    },
+    "mysql": {
+        "host": "47.91.243.209",
+        "prot": "3306",
+        "user": "root",
+        "password": "wuyufan513...",
+        "database": "im_eveIcan"
     }
 }
