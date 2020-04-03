@@ -42,6 +42,6 @@ app.use(allowCrossDomain)
 let routes = require('./service/routes')
 routes(app)
 
-app.listen(8989, () => console.log("server start success"))
+app.listen(8989, () => console.log("---------------------服务启动成功---------------------"))
 
 
