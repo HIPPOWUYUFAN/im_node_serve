@@ -1,15 +1,16 @@
 {
-  "name": "node-parse-server",
+  "name": "node_server",
   "version": "0.0.1",
   "description": "this is a parse-server on node",
   "main": "server.js",
   "scripts": {
     "im": "hotnode server --config ./config/config.im_local",
-    "test": "npm test"
+    "test": "npm test",
+    "pm2_im": "pm2 start server.js --name 'im' -- --config ./config/config.im_local.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HIPPOWUYUFAN/node-parse-server.git"
+    "url": "git+https://github.com/HIPPOWUYUFAN/node_server.git"
   },
   "keywords": [
     "wuyufan513..."
@@ -17,9 +18,9 @@
   "author": "hippo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HIPPOWUYUFAN/node-parse-server/issues"
+    "url": "https://github.com/HIPPOWUYUFAN/node_server/issues"
   },
-  "homepage": "https://github.com/HIPPOWUYUFAN/node-parse-server#readme",
+  "homepage": "https://github.com/HIPPOWUYUFAN/node_server#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
@@ -31,5 +32,8 @@
     "parse-server": "^3.4.4",
     "parse-server-sendmail-adapter": "^1.0.2",
     "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }

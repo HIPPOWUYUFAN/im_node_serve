@@ -5,6 +5,7 @@ var fs = require("fs");     // 访问系统文件
 //  读取config 
 var configFilePath = fs.readFileSync('./.configFilePath', 'utf8');
 var config = JSON.parse(configFilePath).mysql
+console.log(config)
 module.exports = {
     pool: null,
 

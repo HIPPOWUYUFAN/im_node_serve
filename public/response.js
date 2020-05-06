@@ -2,7 +2,7 @@
 /**
  * 返回参数统一配置
  */
-class resp {
+class response {
 
     /**
      * 请求成功
