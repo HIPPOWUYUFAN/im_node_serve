@@ -45,15 +45,12 @@ module.exports = {
 
 
     
-    /**
-     * 异步封装
-     */
 
     exec: function (config) {
         return new Promise((resolve, reject) => {
             this.execute({
                 sql: config.sql,
-                params: config.params,
+                params: config.params || null,
                 success: (res) => {
                     resolve(res)
                 },

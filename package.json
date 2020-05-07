@@ -23,6 +23,7 @@
   "homepage": "https://github.com/HIPPOWUYUFAN/node_server#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "dayjs": "^1.8.26",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "hotnode": "0.0.8",
