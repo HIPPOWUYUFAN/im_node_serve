@@ -14,15 +14,15 @@ const register = (res) => {
         sql: `SELECT count(*) FROM im_user WHERE user_name=${res.username}`,
     }).then(r => {
         console.log(r)
-        if (r&&r['count(*)']) {
+        if (r && r['count(*)']) {
             return msg.fail(null, '用户名已被注册')
         } else {
             return connection.exec({
                 sql: `INSERT INTO im_user(user_name,pass_word,phone_number) VALUES ('${res.username}','${res.password}',${res.phone})`,
             }).then(e => {
-                if(e&&e.affectedRows){
-                    return msg.success({user_id:e.insertId}, '注册成功')
-                }else{
+                if (e && e.affectedRows) {
+                    return msg.success({ user_id: e.insertId }, '注册成功')
+                } else {
                     return msg.success(e, '注册失败')
                 }
             })
@@ -40,7 +40,17 @@ const login = (res) => {
             if (r[0].pass_word == res.password) {
                 return login_time(r[0].user_id).then(e => {
                     console.log(e)
-                    return e.status ? msg.success({ user_id:r[0].user_id,logined: e.data }, '登录成功') : msg.fail(null, e.data)
+                    return e.status
+                        ? msg.success(
+                            {
+                                user_id: r[0].user_id,
+                                user_name: r[0].user_name,
+                                pass_word: r[0].pass_word,
+                                logined: e.data,
+                            },
+                            '登录成功'
+                        )
+                        : msg.fail(null, e.data)
                 })
             } else {
                 return msg.fail(null, '密码错误')
@@ -94,7 +104,7 @@ router.post('/login', (req, res) => {
 
 
 router.post('/register', (req, res) => {
-    if (req.body!={}) {
+    if (req.body != {}) {
         console.log(req.body)
         register(req.body).then(r => {
             console.log(r)
