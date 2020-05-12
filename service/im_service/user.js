@@ -8,14 +8,14 @@ var dayjs = require('dayjs')
 
 
 // 注册
-console.log(dayjs().format())
+// console.log(dayjs().format())
 const register = (res) => {
     return connection.exec({
-        sql: `SELECT count(*) FROM im_user WHERE user_name=${res.username}`,
+        sql: `SELECT count(*) FROM im_user WHERE user_name='${res.username}'`,
     }).then(r => {
-        console.log(r)
-        if (r && r['count(*)']) {
-            return msg.fail(null, '用户名已被注册')
+        // console.log('count', r)
+        if (r && r[0]['count(*)']) {
+            return msg.fail(null, `用户名已被注册`)
         } else {
             return connection.exec({
                 sql: `INSERT INTO im_user(user_name,pass_word,phone_number) VALUES ('${res.username}','${res.password}',${res.phone})`,
@@ -23,7 +23,7 @@ const register = (res) => {
                 if (e && e.affectedRows) {
                     return msg.success({ user_id: e.insertId }, '注册成功')
                 } else {
-                    return msg.success(e, '注册失败')
+                    return msg.fail(e, '注册失败')
                 }
             })
         }
@@ -31,15 +31,17 @@ const register = (res) => {
 }
 // 登录
 const login = (res) => {
-    console.log(res)
+    // console.log(res)
     return connection.exec({
         sql: `SELECT user_id,user_name,pass_word FROM im_user WHERE user_name='${res.username}'`,
     }).then(r => {
-        console.log(r)
-        if (r && r.length) {
+        // console.log(r)
+        if (r && r.length > 1) {
+            msg.fail(null, '登录失败：账号异常')
+        } else if (r && r.length == 1) {
             if (r[0].pass_word == res.password) {
                 return login_time(r[0].user_id).then(e => {
-                    console.log(e)
+                    // console.log(e)
                     return e.status
                         ? msg.success(
                             {
@@ -63,7 +65,7 @@ const login = (res) => {
 
 // 修改登录时间
 const login_time = (id) => {
-    console.log(id)
+    // console.log(id)
     let logined = dayjs().format()
     return connection.exec({
         sql: `UPDATE im_user SET logined_time='${logined}' WHERE user_id=${id}`,
@@ -87,15 +89,11 @@ const login_time = (id) => {
     })
 }
 
-
-// (function () {
-//     register({ username: '123', password: '321',phone:'2131231' })
-// })()
 router.post('/login', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     if (req.body) {
         login(req.body).then(r => {
-            console.log(r)
+            // console.log(r)
             res.json(r)
         })
     }

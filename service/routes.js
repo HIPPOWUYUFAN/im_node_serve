@@ -5,5 +5,6 @@ module.exports = function (app) {
     let user = require('./im_service/user');
     app.use('/im_service/user', user);
 
-
+    let ws = require('./im_service/ws');
+    app.use('/im_service/ws', ws);
 }
