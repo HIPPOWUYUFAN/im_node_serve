@@ -1,6 +1,6 @@
-<p align='center'>
+<h2 align='center'>
   Welcome to node service
-<p/>
+<h2/>
 
 ### 运行监控
 - pm2 生产环境，集群运行监控
