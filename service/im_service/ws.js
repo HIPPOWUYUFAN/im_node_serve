@@ -1,7 +1,5 @@
 var router = require('express').Router();
 const http = require("http").createServer(router)
-var io = require('socket.io')(http);
-// var _ = require('underscore');
 //跨域全局配置
 const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -11,7 +9,10 @@ const allowCrossDomain = (req, res, next) => {
     res.header('Content-Type', "application/json; charset=utf-8");
     next();
 };
-io.use(allowCrossDomain)
+http.use(allowCrossDomain)
+var io = require('socket.io')(http);
+// var _ = require('underscore');
+
 const userList = {};  // 已上线人列表
 let userCount = 0;      // 已上线人数
 const id = {}
